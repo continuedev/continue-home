@@ -1,0 +1,383 @@
+/* Continue — acquisition landing page.
+   Static rebuild of the live continue.dev design (IBM Plex, monochrome split
+   layout). No framework, no build step. */
+
+@import url("/fonts.css");
+
+:root {
+  --sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --neutral-950: #0a0a0a;
+  --neutral-900: #171717;
+  --neutral-800: #262626;
+  --neutral-700: #404040;
+  --neutral-600: #525252;
+  --neutral-500: #737373;
+  --neutral-300: #d4d4d4;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  color: var(--neutral-900);
+  background: hsl(0 0% 95.3%);
+}
+
+.font-mono {
+  font-family: var(--mono);
+}
+
+a {
+  color: inherit;
+}
+
+/* ---- Split layout ------------------------------------------------------ */
+.split {
+  display: flex;
+  min-height: 100vh;
+  background: #fff;
+}
+
+.pane-left {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background: #fff;
+  padding: 6rem 1.5rem;
+}
+
+.pane-right {
+  display: none;
+}
+
+.pane-right img {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* ---- Header ------------------------------------------------------------ */
+.site-header {
+  position: absolute;
+  inset-inline: 0;
+  top: 1.5rem;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  padding: 0 1.5rem;
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  max-width: 36rem;
+}
+
+.logo {
+  margin-left: -0.875rem;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.logo img {
+  height: 3rem;
+  width: auto;
+  display: block;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  column-gap: 1.25rem;
+  row-gap: 0.25rem;
+}
+.site-nav a {
+  display: inline-flex;
+  align-items: center;
+  font-size: 14px;
+  color: rgb(0 0 0 / 0.55);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.site-nav a:hover {
+  color: rgb(0 0 0 / 0.9);
+}
+
+/* ---- Article ----------------------------------------------------------- */
+.article {
+  width: 100%;
+  max-width: 36rem;
+}
+
+.article__eyebrow {
+  margin: 0 0 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--neutral-600);
+}
+
+.article__title {
+  margin: 0;
+  font-size: 1.875rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--neutral-950);
+}
+
+.article__body {
+  margin-top: 2.5rem;
+  font-size: 15px;
+  line-height: 1.625;
+  color: var(--neutral-900);
+}
+.article__body p {
+  margin: 0 0 1.25rem;
+}
+.article__body p:last-child {
+  margin-bottom: 0;
+}
+.article__body a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: var(--neutral-300);
+  transition: text-decoration-color 0.15s ease;
+}
+.article__body a:hover {
+  text-decoration-color: var(--neutral-500);
+}
+
+/* ---- FAQ accordion (native <details>) ---------------------------------- */
+.faq {
+  margin-top: 3.5rem;
+}
+.faq__heading {
+  margin: 0 0 1.25rem;
+  font-family: var(--mono);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: var(--neutral-800);
+}
+
+.faq-item {
+  border-bottom: 1px solid rgb(0 0 0 / 0.08);
+}
+.faq-item > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--neutral-950);
+  cursor: pointer;
+  list-style: none;
+}
+.faq-item > summary::-webkit-details-marker {
+  display: none;
+}
+.faq-item > summary .chevron {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+.faq-item[open] > summary .chevron {
+  transform: rotate(180deg);
+}
+.faq-item__answer {
+  padding: 0 0 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--neutral-600);
+}
+.faq-item__answer a {
+  color: var(--neutral-800);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: var(--neutral-300);
+}
+.faq-item__answer a:hover {
+  text-decoration-color: var(--neutral-500);
+}
+
+/* ---- Responsive: reveal the image pane on large screens ---------------- */
+@media (min-width: 1024px) {
+  .pane-left {
+    width: 50%;
+    padding: 8rem 3rem;
+  }
+  .pane-right {
+    display: block;
+    width: 50%;
+    /* Pin to the viewport so the image never resizes when the left column
+       grows (e.g. when an FAQ accordion opens). align-self:flex-start opts
+       out of the flex "stretch to equal height" that caused the re-crop. */
+    align-self: flex-start;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+  }
+  .site-header {
+    top: 2rem;
+    padding: 0 3rem;
+  }
+  .article__title {
+    font-size: 2.25rem;
+  }
+}
+
+/* ======================================================================== */
+/* Legal pages (privacy, terms) — long-form prose                           */
+/* ======================================================================== */
+body.legal {
+  background: #fff;
+  color: var(--neutral-800);
+}
+
+.legal-header {
+  border-bottom: 1px solid rgb(0 0 0 / 0.06);
+}
+.legal-header__inner,
+.legal-footer__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 1.25rem 1.5rem;
+}
+
+.legal-main {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+}
+
+.legal-meta {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+  color: var(--neutral-500);
+  margin: 0 0 2.5rem;
+}
+
+/* Prose */
+.prose {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--neutral-700);
+}
+.prose h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--neutral-950);
+  margin: 0 0 0.75rem;
+}
+.prose h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--neutral-950);
+  margin: 2.75rem 0 0.75rem;
+  letter-spacing: -0.01em;
+}
+.prose h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--neutral-900);
+  margin: 2rem 0 0.5rem;
+}
+.prose h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--neutral-900);
+  margin: 1.5rem 0 0.5rem;
+}
+.prose p {
+  margin: 0 0 1.15rem;
+}
+.prose ul,
+.prose ol {
+  margin: 0 0 1.15rem;
+  padding-left: 1.5rem;
+}
+.prose li {
+  margin: 0 0 0.4rem;
+}
+.prose a {
+  color: var(--neutral-950);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: var(--neutral-300);
+  transition: text-decoration-color 0.15s ease;
+  overflow-wrap: anywhere;
+}
+.prose a:hover {
+  text-decoration-color: var(--neutral-500);
+}
+.prose strong,
+.prose b {
+  font-weight: 600;
+  color: var(--neutral-900);
+}
+.prose blockquote {
+  margin: 0 0 1.15rem;
+  padding-left: 1rem;
+  border-left: 2px solid rgb(0 0 0 / 0.1);
+  color: var(--neutral-600);
+}
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 1.15rem;
+  font-size: 0.9rem;
+}
+.prose th,
+.prose td {
+  border: 1px solid rgb(0 0 0 / 0.1);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.legal-footer {
+  border-top: 1px solid rgb(0 0 0 / 0.06);
+}
+.legal-footer__inner {
+  font-size: 0.8125rem;
+  color: var(--neutral-500);
+}
+.legal-footer__inner nav {
+  display: flex;
+  gap: 1.25rem;
+}
+.legal-footer a {
+  color: var(--neutral-500);
+  text-decoration: none;
+}
+.legal-footer a:hover {
+  color: var(--neutral-800);
+}
