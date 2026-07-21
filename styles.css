@@ -2,7 +2,7 @@
    Static rebuild of the live continue.dev design (IBM Plex, monochrome split
    layout). No framework, no build step. */
 
-@import url("/fonts.css");
+@import url("fonts.css");
 
 :root {
   --sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
